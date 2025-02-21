@@ -19,15 +19,15 @@
  */
 package org.sonar.squidbridge.commonrules.internal.checks;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.sonar.api.batch.DecoratorContext;
 import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rule.RuleKey;
-
-import javax.annotation.Nullable;
 
 public abstract class CommonCheck {
 

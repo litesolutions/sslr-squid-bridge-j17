@@ -19,11 +19,11 @@
  */
 package org.sonar.squidbridge.api;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.sonar.check.Message;
-
 import java.text.MessageFormat;
 import java.util.Locale;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.sonar.check.Message;
 
 public class CheckMessage implements Message {
 

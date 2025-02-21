@@ -19,25 +19,31 @@
  */
 package org.sonar.squidbridge.annotations;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import org.apache.commons.lang.StringUtils;
-import org.sonar.api.server.rule.*;
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.NewParam;
 import org.sonar.api.server.rule.RulesDefinition.NewRepository;
 import org.sonar.api.server.rule.RulesDefinition.NewRule;
+import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.check.Cardinality;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.squidbridge.rules.ExternalDescriptionLoader;
 
-import java.lang.annotation.Annotation;
-import java.net.URL;
-import java.util.*;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * Utility class which helps setting up an implementation of {@link RulesDefinition} with a list of

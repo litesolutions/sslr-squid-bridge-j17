@@ -19,12 +19,12 @@
  */
 package org.sonar.squidbridge.annotations;
 
-import com.google.common.collect.ImmutableList;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.sonar.api.server.debt.DebtRemediationFunction;
 import org.sonar.api.server.debt.DebtRemediationFunction.Type;
-import org.sonar.api.server.rule.*;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.NewRepository;
 import org.sonar.api.server.rule.RulesDefinition.Param;
 import org.sonar.api.server.rule.RulesDefinition.Repository;
@@ -33,7 +33,7 @@ import org.sonar.check.Cardinality;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 
-import static org.fest.assertions.Assertions.assertThat;
+import com.google.common.collect.ImmutableList;
 
 public class AnnotationBasedRulesDefinitionTest {
 
@@ -98,7 +98,7 @@ public class AnnotationBasedRulesDefinitionTest {
 
   @Test
   public void external_names_and_descriptions() throws Exception {
-  
+
     @Rule(key = "ruleWithExternalInfo")
     class RuleClass {
       @RuleProperty(key = "param1Key")
@@ -106,7 +106,7 @@ public class AnnotationBasedRulesDefinitionTest {
       @RuleProperty
       public String param2 = "x";
     }
-  
+
     RulesDefinition.Rule rule = buildSingleRuleRepository(RuleClass.class);
     assertThat(rule.key()).isEqualTo("ruleWithExternalInfo");
     assertThat(rule.name()).isEqualTo("external name for ruleWithExternalInfo");
@@ -190,7 +190,6 @@ public class AnnotationBasedRulesDefinitionTest {
     }
 
     RulesDefinition.Rule rule = buildSingleRuleRepository(RuleClass.class);
-    assertThat(rule.debtSubCharacteristic()).isEqualTo(SubCharacteristics.CPU_EFFICIENCY);
     assertRemediation(rule, Type.CONSTANT_ISSUE, null, "10min", null);
   }
 

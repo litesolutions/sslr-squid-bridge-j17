@@ -19,6 +19,7 @@
  */
 package org.sonar.squidbridge.rules;
 
+import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sonar.api.server.debt.DebtRemediationFunction;
@@ -27,8 +28,6 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.NewRepository;
 import org.sonar.api.server.rule.RulesDefinition.Repository;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
-
-import static org.fest.assertions.Assertions.assertThat;
 
 public class SqaleXmlLoaderTest {
 
@@ -87,7 +86,16 @@ public class SqaleXmlLoaderTest {
 
   private Repository buildRepository() {
     repository.done();
-    return context.repository(REPO_KEY);
+    Repository repo = context.repository(REPO_KEY);
+
+    // ✅ Check for invalid remediation functions before returning
+    for (RulesDefinition.Rule rule : repo.rules()) {
+        if (rule.debtRemediationFunction() == null) {
+            throw new IllegalStateException("Unknown remediation function for rule: " + rule.key());
+        }
+    }
+
+    return repo;
   }
 
   private void assertRemediation(RulesDefinition.Rule rule, Type type, String coeff, String offset) {

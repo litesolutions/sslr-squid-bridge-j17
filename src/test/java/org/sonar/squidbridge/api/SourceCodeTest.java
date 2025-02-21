@@ -19,17 +19,16 @@
  */
 package org.sonar.squidbridge.api;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.sonar.squidbridge.measures.Measurable;
-import org.sonar.squidbridge.measures.Metric;
-
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+import org.sonar.squidbridge.measures.Measurable;
+import org.sonar.squidbridge.measures.Metric;
 
 public class SourceCodeTest {
 

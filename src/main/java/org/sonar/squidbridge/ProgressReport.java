@@ -19,16 +19,17 @@
  */
 package org.sonar.squidbridge;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ProgressReport implements Runnable {
 
   private final long period;
+  private boolean cancelled = true;
   private final Logger logger;
   private int count;
   private int currentFileNumber = -1;
@@ -41,6 +42,7 @@ public class ProgressReport implements Runnable {
   public ProgressReport(String threadName, long period, Logger logger, String adjective) {
     this.period = period;
     this.logger = logger;
+    this.cancelled = false;
     this.adjective = adjective;
     thread = new Thread(this);
     thread.setName(threadName);
@@ -97,6 +99,7 @@ public class ProgressReport implements Runnable {
   }
 
   public synchronized void cancel() {
+    cancelled = true;
     thread.interrupt();
   }
 
@@ -111,4 +114,7 @@ public class ProgressReport implements Runnable {
     }
   }
 
+  public boolean isCancelled() {
+    return cancelled;
+  }
 }

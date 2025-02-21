@@ -21,8 +21,7 @@ package org.sonar.squidbridge;
 
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.containers.TransientPicoContainer;
-import org.sonar.graph.DirectedGraph;
-import org.sonar.graph.DirectedGraphAccessor;
+import org.jgrapht.graph.DirectedMultigraph;
 import org.sonar.squidbridge.api.CodeScanner;
 import org.sonar.squidbridge.api.CodeVisitor;
 import org.sonar.squidbridge.api.Query;
@@ -41,12 +40,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Squid implements DirectedGraphAccessor<SourceCode, SourceCodeEdge>, SourceCodeSearchEngine {
+public class Squid implements SourceCodeSearchEngine {
 
   private MutablePicoContainer pico;
   private final SourceProject project;
   private final SquidIndex squidIndex;
-  private DirectedGraph<SourceCode, SourceCodeEdge> graph = new DirectedGraph<SourceCode, SourceCodeEdge>();
+  private DirectedMultigraph<SourceCode, SourceCodeEdge> graph = new DirectedMultigraph<>(SourceCodeEdge.class);
   private final Set<CodeVisitor> externalCodeVisitors = new HashSet<CodeVisitor>();
 
   public Squid(SquidConfiguration conf) {
@@ -123,33 +122,29 @@ public class Squid implements DirectedGraphAccessor<SourceCode, SourceCodeEdge>,
     return squidIndex.search(query);
   }
 
-  @Override
+
   public SourceCodeEdge getEdge(SourceCode from, SourceCode to) {
     return graph.getEdge(from, to);
   }
 
-  @Override
   public Collection<SourceCodeEdge> getIncomingEdges(SourceCode to) {
-    return graph.getIncomingEdges(to);
+    return graph.incomingEdgesOf(to);
   }
 
-  @Override
   public Collection<SourceCodeEdge> getOutgoingEdges(SourceCode from) {
-    return graph.getOutgoingEdges(from);
+    return graph.outgoingEdgesOf(from);
   }
 
-  @Override
   public Set<SourceCode> getVertices() {
-    return graph.getVertices();
+    return graph.vertexSet();
   }
 
   public List<SourceCodeEdge> getEdges(Collection<SourceCode> vertices) {
-    return graph.getEdges(vertices);
+    return List.copyOf(graph.edgesOf(vertices.iterator().next()));
   }
 
-  @Override
   public boolean hasEdge(SourceCode from, SourceCode to) {
-    return graph.hasEdge(from, to);
+    return graph.containsEdge(from, to);
   }
 
   public void flush() {

@@ -19,11 +19,12 @@
  */
 package org.sonar.squidbridge.checks;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.sonar.sslr.api.AstAndTokenVisitor;
 import com.sonar.sslr.api.Grammar;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.Trivia;
-import org.apache.commons.lang.StringUtils;
 
 public abstract class AbstractSingleLineCommentsSyntaxCheck<G extends Grammar> extends SquidCheck<G> implements AstAndTokenVisitor {
 

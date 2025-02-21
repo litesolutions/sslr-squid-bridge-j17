@@ -19,10 +19,9 @@
  */
 package org.sonar.squidbridge.text;
 
+import org.apache.commons.lang3.StringUtils;
 import org.sonar.squidbridge.measures.Measurable;
 import org.sonar.squidbridge.measures.Metric;
-
-import org.apache.commons.lang.StringUtils;
 
 class Line implements Measurable<Metric> {
 

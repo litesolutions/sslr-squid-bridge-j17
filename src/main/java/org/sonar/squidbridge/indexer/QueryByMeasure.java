@@ -19,7 +19,6 @@
  */
 package org.sonar.squidbridge.indexer;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.sonar.squidbridge.api.Query;
 import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.measures.Metric;
@@ -53,7 +52,7 @@ public class QueryByMeasure implements Query {
   public boolean match(SourceCode unit) {
     switch (operator) {
       case EQUALS:
-        return NumberUtils.compare(unit.getDouble(metric), value) == 0;
+        return Double.compare(unit.getDouble(metric), value) == 0;
       case GREATER_THAN:
         return unit.getDouble(metric) > value;
       case GREATER_THAN_EQUALS:

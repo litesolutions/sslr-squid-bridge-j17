@@ -19,9 +19,13 @@
  */
 package org.sonar.squidbridge.annotations;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Collection;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rule.Severity;
 import org.sonar.api.rules.ActiveRule;
@@ -30,11 +34,7 @@ import org.sonar.api.rules.RulePriority;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.check.Rule;
 
-import java.util.Collection;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.google.common.collect.ImmutableList;
 
 public class AnnotationBasedProfileBuilderTest {
 

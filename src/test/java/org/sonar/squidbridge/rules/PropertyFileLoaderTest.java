@@ -19,21 +19,20 @@
  */
 package org.sonar.squidbridge.rules;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.NewParam;
 import org.sonar.api.server.rule.RulesDefinition.NewRepository;
 import org.sonar.api.server.rule.RulesDefinition.NewRule;
 import org.sonar.api.server.rule.RulesDefinition.Repository;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 
 public class PropertyFileLoaderTest {
 
