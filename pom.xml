@@ -17,7 +17,7 @@
 
   <groupId>org.sonarsource.sslr-squid-bridge</groupId>
   <artifactId>sslr-squid-bridge</artifactId>
-  <version>2.6.1-j17</version>
+  <version>${revision}</version>
 
   <name>SonarSource :: Language Recognizer :: Squid Bridge</name>
   <description />
@@ -36,6 +36,8 @@
   </licenses>
   <properties>
       <license.title>SSLR Squid Bridge</license.title>
+
+      <revision>2.6.1-j17</revision>
 
       <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
