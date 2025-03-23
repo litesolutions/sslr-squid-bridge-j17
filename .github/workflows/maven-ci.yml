@@ -39,7 +39,7 @@ jobs:
           [ $GITHUB_EVENT_NAME == 'pull_request' ] && VERSION+=-dev.${{ github.event.pull_request.number }}
           [ $GITHUB_EVENT_NAME != 'release' ] && VERSION+=-beta && VERSION+=.$(($(git tag -l "v$VERSION.*" | sort -nt. -k4 -k5 2>/dev/null |  tail -1 | rev | cut -d. -f1 | rev)+1))
           echo version=$VERSION >> $GITHUB_OUTPUT
-          echo name=sonar-objectscript-plugin-$VERSION >> $GITHUB_OUTPUT
+          echo name=sslr-squid-bridge-$VERSION >> $GITHUB_OUTPUT
 
       - name: Build with Maven
         run: mvn -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml -B package -Drevision=${{ steps.set-version.outputs.version }}
@@ -60,6 +60,22 @@ jobs:
           files: |
             target/${{ steps.set-version.outputs.name }}.jar
            
+      - name: Upload to GitHub Packages
+        run: |
+            mvn deploy:deploy-file \
+            -DgroupId=org.sonarsource.sslr-squid-bridge \
+            -DartifactId=sslr-squid-bridge \
+            -Dversion=${{ steps.set-version.outputs.version }} \
+            -Dpackaging=jar \
+            -Dfile=target/${{ steps.set-version.outputs.name }}.jar \
+            -DrepositoryId=github \
+            -Durl=https://maven.pkg.github.com/${{ github.repository_owner }}/${{ github.event.repository.name }} \
+            -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml
+
+        env:
+          USER_NAME: ${{ github.actor }}
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # - name: Upload to Nexus plugin
       #   run: |
       #     mvn deploy:deploy-file \
