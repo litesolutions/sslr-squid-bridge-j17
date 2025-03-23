@@ -3,12 +3,10 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      # - master
-      - 2.6.1-17
+      - master
   pull_request:
     branches:
-      # - master
-      - 2.6.1-17
+      - master
   release:
     types:
       - released
@@ -20,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         if: github.event_name == 'release'
         with:
-          ref: main
+          ref: master
       - uses: actions/checkout@v4
         if: github.event_name != 'release'
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
