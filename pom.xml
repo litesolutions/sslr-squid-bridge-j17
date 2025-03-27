@@ -37,7 +37,7 @@
   <properties>
       <license.title>SSLR Squid Bridge</license.title>
 
-<revision>2.6.2-SNAPSHOT</revision>
+<revision>2.6.1sslr-squid-bridge-j17</revision>
 
       <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 

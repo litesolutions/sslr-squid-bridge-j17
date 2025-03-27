@@ -68,6 +68,8 @@ jobs:
             -Dversion=${{ steps.set-version.outputs.version }} \
             -Dpackaging=jar \
             -Dfile=target/${{ steps.set-version.outputs.name }}.jar \
+            -DpomFile=./pom.xml \
+            -DgeneratePom=false \
             -DrepositoryId=github \
             -Durl=https://maven.pkg.github.com/${{ github.repository_owner }}/${{ github.event.repository.name }} \
             -s $GITHUB_WORKSPACE/.github/workflows/maven-settings.xml
